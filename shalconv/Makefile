@@ -1,4 +1,4 @@
-SERBOX=/usr/local/serialbox
+SERBOX=$(SERIALBOX_DIR)
 
 TARGET = main.x
 
@@ -21,8 +21,7 @@ FFLAGS = -fdec -fdefault-real-8 -fno-fast-math -ffree-form -ffree-line-length-no
 	-ffpe-trap=invalid,zero,overflow -fbounds-check -finit-real=nan -finit-integer=9999999 \
 	-finit-logical=true -finit-character=35 -DSERIALIZE -I$(SERBOX)/include
 LD = gfortran
-LDFLAGS = $(SERBOX)/lib/libSerialboxFortran.a $(SERBOX)/lib/libSerialboxC.a $(SERBOX)/lib/libSerialboxCore.a -L/lib/x86_64-linux-gnu -lnetcdff -lnetcdf -lpthread -lstdc++ -lstdc++fs
-
+LDFLAGS = $(SERBOX)/lib/libSerialboxFortran.a $(SERBOX)/lib/libSerialboxC.a $(SERBOX)/lib/libSerialboxCore.a -L/lib/x86_64-linux-gnu -L$(NETCDF_LIB) -lnetcdff -lnetcdf -lpthread -lstdc++ -lstdc++fs 
 .PHONY: all
 all: pre-process $(TARGET)
 
